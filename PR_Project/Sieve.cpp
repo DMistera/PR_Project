@@ -1,19 +1,14 @@
-// PR_Project.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+#include "Sieve.h"
 
-#include <iostream>
-#include <time.h>
-
-const int MIN = 99999000;
-const int MAX = 100000000;
-
-int main()
+std::string Sieve::name()
 {
-    // Start timer
-    clock_t start = clock();
+    return "Sieve Algorithm";
+}
 
-    int dividersSize = sqrt(MAX) + 1;
-    int arraySize = MAX - MIN;
+int* Sieve::find(int min, int max, int* size)
+{
+    int dividersSize = sqrt(max) + 1;
+    int arraySize = max - min;
 
     // Initialize array
     bool* array = new bool[arraySize];
@@ -34,10 +29,10 @@ int main()
 
     // Filter non-prime numbers
     for (int i = 2; i < dividersSize; i++) {
-        int j = i * floor((MIN - 1) / i);
-        while (j + i < MAX) {
+        int j = i * floor((min - 1) / i);
+        while (j + i < max) {
             j += i;
-            int index = j - MIN;
+            int index = j - min;
             if (index < 0 || index >= arraySize) {
                 std::cout << index;
             }
@@ -45,25 +40,27 @@ int main()
         }
     }
 
-    // End timer
-    clock_t end = clock();
-
-     //Print result
+    // Count all prime numbers
+    *size = 0;
     for (int i = 0; i < arraySize; i++) {
         if (array[i]) {
-            std::cout << i + MIN << " ";
+            (*size)++;
         }
     }
 
-    std::cout << std::endl;
-    std::cout << "Numbers found in " << (end - start)/1000.0 << " seconds\n";
+    // Insert all prime numbers into an array
+    int* result = new int[*size];
+    int j = 0;
+    for (int i = 0; i < arraySize; i++) {
+        if (array[i]) {
+            result[j++] = min + i;
+        }
+    }
 
+    // Clean up
     delete[] array;
     delete[] dividers;
 
-    return 0;
+    return result;
+
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-

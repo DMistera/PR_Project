@@ -147,7 +147,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="PR_Project.cpp" />
+    <ClCompile Include="PrimeFinder.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sieve.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PrimeFinder.h" />
+    <ClInclude Include="Sieve.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
