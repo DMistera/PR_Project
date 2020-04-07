@@ -1,11 +1,11 @@
-#include "Sieve.h"
+#include "SieveParRange.h"
 
-std::string Sieve::name()
+std::string SieveParRange::name()
 {
-    return "Sieve Algorithm";
+	return "Sieve Algorith, parallel finding of primes in given range";
 }
 
-int* Sieve::find(int min, int max, int* size)
+int* SieveParRange::find(int min, int max, int* size)
 {
     int dividersSize = sqrt(max) + 1;
     int arraySize = max - min;
@@ -14,7 +14,9 @@ int* Sieve::find(int min, int max, int* size)
     bool* array = new bool[arraySize];
     bool* dividers = new bool[dividersSize];
 
-    std::cout << "Initialized arrays";
+    for (int i = 0; i < arraySize; i++) {
+        array[i] = true;
+    }
 
     // Filter non-prime dividers
     for (int i = 2; i < sqrt(dividersSize); i++) {
@@ -25,21 +27,21 @@ int* Sieve::find(int min, int max, int* size)
         }
     }
 
-    std::cout << "Filtered dividers";
-
     // Filter non-prime numbers
-    for (int i = 2; i < dividersSize; i++) {
-        if (dividers[i]) {
-            int j = i * floor((min - 1) / i);
-            while (j + i < max) {
-                j += i;
-                int index = j - min;
-                array[index] = false;
+#pragma omp parallel
+    {
+#pragma omp for schedule(dynamic, 1000)
+        for (int i = 2; i < dividersSize; i++) {
+            if (dividers[i]) {
+                int j = i * floor((min - 1) / i);
+                while (j + i < max) {
+                    j += i;
+                    int index = j - min;
+                    array[index] = false;
+                }
             }
         }
     }
-
-    std::cout << "Filtered non-primes";
 
     // Count all prime numbers
     *size = 0;
@@ -48,8 +50,6 @@ int* Sieve::find(int min, int max, int* size)
             (*size)++;
         }
     }
-
-    std::cout << "Counted primes";
 
     // Insert all prime numbers into an array
     int* result = new int[*size];
@@ -60,12 +60,9 @@ int* Sieve::find(int min, int max, int* size)
         }
     }
 
-    std::cout << "Inserted primes";
-
     // Clean up
     delete[] array;
     delete[] dividers;
 
     return result;
-
 }

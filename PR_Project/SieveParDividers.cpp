@@ -1,11 +1,11 @@
-#include "Sieve.h"
+#include "SieveParDividers.h"
 
-std::string Sieve::name()
+std::string SieveParDividers::name()
 {
-    return "Sieve Algorithm";
+	return "Sieve Algorith, parallel finding of dividers";
 }
 
-int* Sieve::find(int min, int max, int* size)
+int* SieveParDividers::find(int min, int max, int* size)
 {
     int dividersSize = sqrt(max) + 1;
     int arraySize = max - min;
@@ -14,18 +14,23 @@ int* Sieve::find(int min, int max, int* size)
     bool* array = new bool[arraySize];
     bool* dividers = new bool[dividersSize];
 
-    std::cout << "Initialized arrays";
-
-    // Filter non-prime dividers
-    for (int i = 2; i < sqrt(dividersSize); i++) {
-        int j = i;
-        while (j + i < dividersSize) {
-            j += i;
-            dividers[j] = false;
-        }
+    for (int i = 0; i < arraySize; i++) {
+        array[i] = true;
     }
 
-    std::cout << "Filtered dividers";
+    // Filter non-prime dividers
+    int maxI = sqrt(dividersSize);
+#pragma omp parallel 
+    {
+#pragma omp for
+        for (int i = 2; i < maxI; i++) {
+            int j = i;
+            while (j + i < dividersSize) {
+                j += i;
+                dividers[j] = false;
+            }
+        }
+    }
 
     // Filter non-prime numbers
     for (int i = 2; i < dividersSize; i++) {
@@ -39,8 +44,6 @@ int* Sieve::find(int min, int max, int* size)
         }
     }
 
-    std::cout << "Filtered non-primes";
-
     // Count all prime numbers
     *size = 0;
     for (int i = 0; i < arraySize; i++) {
@@ -48,8 +51,6 @@ int* Sieve::find(int min, int max, int* size)
             (*size)++;
         }
     }
-
-    std::cout << "Counted primes";
 
     // Insert all prime numbers into an array
     int* result = new int[*size];
@@ -60,12 +61,9 @@ int* Sieve::find(int min, int max, int* size)
         }
     }
 
-    std::cout << "Inserted primes";
-
     // Clean up
     delete[] array;
     delete[] dividers;
 
     return result;
-
 }

@@ -6,12 +6,16 @@
 #include <vector>
 #include "PrimeFinder.h"
 #include "Sieve.h"
+#include "SieveParDividers.h"
+#include "SieveParRange.h"
 
-const int MIN = 90000000;
-const int MAX = 100000000;
+const int MIN = 9000000000;
+const int MAX = 10000000000;
 
 std::vector<PrimeFinder*> primeFinders = {
-    new Sieve()
+    new SieveParRange(),
+    new Sieve(),
+    new SieveParDividers()
 };
 
 int main()

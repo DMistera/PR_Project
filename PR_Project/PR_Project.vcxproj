@@ -90,6 +90,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -120,6 +121,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,13 +149,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ParallelPrimeFinder.cpp" />
     <ClCompile Include="PrimeFinder.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sieve.cpp" />
+    <ClCompile Include="SieveParDividers.cpp" />
+    <ClCompile Include="SieveParRange.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ParallelPrimeFinder.h" />
     <ClInclude Include="PrimeFinder.h" />
     <ClInclude Include="Sieve.h" />
+    <ClInclude Include="SieveParDividers.h" />
+    <ClInclude Include="SieveParRange.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

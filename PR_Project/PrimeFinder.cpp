@@ -12,7 +12,7 @@ void PrimeFinder::test(int min, int max)
 
 void PrimeFinder::printResult(std::string instanceName, double seconds)
 {
-	std::cout << instanceName << " found all primes in " << seconds;
+	std::cout << instanceName << " found all primes in " << seconds << std::endl;
 }
 
 double PrimeFinder::measureTime(int min, int max)
@@ -21,27 +21,33 @@ double PrimeFinder::measureTime(int min, int max)
 	clock_t start = clock();
 	int* result = find(min, max, &size);
 	clock_t end = clock();
-	int invalidNumber;
-	if (!validate(result, size, &invalidNumber)) {
-		std::stringstream ss;
-		ss << name() << " failed validation: " << invalidNumber << " is not a prime number.";
-		throw std::exception(ss.str().c_str());
-	}
+	validate(min, max, result, size);
 	double elapsed = (end - start) / 1000.0;
+	delete result;
 	return elapsed;
 }
 
-bool PrimeFinder::validate(int* result, int size, int* invalidNumber)
+void PrimeFinder::validate(int min, int max, int* result, int size)
 {
+	std::stringstream ss;
+	ss << name() << " failed validation: ";
 	srand(time(NULL));
 	for (int i = 0; i < TESTS; i++) {
 		int index = rand() % size;
-		if (!checkPrime(result[index])) {
-			*invalidNumber = result[index];
-			return false;
+		int n = result[index];
+		if (n < min) {
+			ss << n << " is lesser than minimum";
+			throw std::exception(ss.str().c_str());
+		}
+		if (n > max) {
+			ss << n << " is higher than maximum.";
+			throw std::exception(ss.str().c_str());
+		}
+		if (!checkPrime(n)) {
+			ss << n << " is not a prime number.";
+			throw std::exception(ss.str().c_str());
 		}
 	}
-	return true;
 }
 
 bool PrimeFinder::checkPrime(int n)

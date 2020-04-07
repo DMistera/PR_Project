@@ -10,16 +10,15 @@
 class PrimeFinder
 {
 public:
-	void test(int min, int max);
+	virtual void test(int min, int max);
 protected:
 	virtual std::string name() = 0;
 	virtual int* find(int min, int max, int* size) = 0;
 	void printResult(std::string instanceName, double seconds);
+	double measureTime(int min, int max);
 private:
 	const int TESTS = 5;
-	double measureTime(int min, int max);
-	bool validate(int* result, int size, int* invalidNumber);
-	
+	void validate(int min, int max, int* result, int size);
 	bool checkPrime(int n);
 };
 
