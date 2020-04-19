@@ -1,5 +1,7 @@
 #include "SieveParRange.h"
 
+#include <time.h>
+
 std::string SieveParRange::name()
 {
 	return "Sieve Algorith, parallel finding of primes in given range";
@@ -30,11 +32,12 @@ int* SieveParRange::find(int min, int max, int* size)
     // Filter non-prime numbers
 #pragma omp parallel
     {
-#pragma omp for schedule(dynamic, 1000)
+#pragma omp for schedule(guided)
         for (int i = 2; i < dividersSize; i++) {
             if (dividers[i]) {
                 int j = i * floor((min - 1) / i);
-                while (j + i < max) {
+                while (j + i < max)
+                {
                     j += i;
                     int index = j - min;
                     array[index] = false;

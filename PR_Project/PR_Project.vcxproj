@@ -154,6 +154,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sieve.cpp" />
     <ClCompile Include="SieveParDividers.cpp" />
+    <ClCompile Include="SieveParEverything.cpp" />
     <ClCompile Include="SieveParRange.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="PrimeFinder.h" />
     <ClInclude Include="Sieve.h" />
     <ClInclude Include="SieveParDividers.h" />
+    <ClInclude Include="SieveParEverything.h" />
     <ClInclude Include="SieveParRange.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

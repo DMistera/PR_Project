@@ -1,5 +1,7 @@
 #include "SieveParDividers.h"
 
+#include <time.h>
+
 std::string SieveParDividers::name()
 {
 	return "Sieve Algorith, parallel finding of dividers";
@@ -18,11 +20,13 @@ int* SieveParDividers::find(int min, int max, int* size)
         array[i] = true;
     }
 
+    int start = clock();
+
     // Filter non-prime dividers
     int maxI = sqrt(dividersSize);
 #pragma omp parallel 
     {
-#pragma omp for
+#pragma omp for schedule(guided)
         for (int i = 2; i < maxI; i++) {
             int j = i;
             while (j + i < dividersSize) {
@@ -31,6 +35,9 @@ int* SieveParDividers::find(int min, int max, int* size)
             }
         }
     }
+
+    int end = clock();
+    std::cout << "Dividers:" << (end - start) / 1000.0f << std::endl;
 
     // Filter non-prime numbers
     for (int i = 2; i < dividersSize; i++) {

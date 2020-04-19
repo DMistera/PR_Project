@@ -1,13 +1,11 @@
-#include "Sieve.h"
+#include "SieveParEverything.h"
 
-#include <vector>
-
-std::string Sieve::name()
+std::string SieveParEverything::name()
 {
-    return "Sieve Algorithm";
+	return "Sieve Algorith, maximum parallelization";
 }
 
-int* Sieve::find(int min, int max, int* size)
+int* SieveParEverything::find(int min, int max, int* size)
 {
     int dividersSize = sqrt(max) + 1;
     int arraySize = max - min;
@@ -16,25 +14,39 @@ int* Sieve::find(int min, int max, int* size)
     bool* array = new bool[arraySize];
     bool* dividers = new bool[dividersSize];
 
+    *size = 0;
+
+#pragma omp parallel
+{
+
+    #pragma omp for
     for (int i = 0; i < arraySize; i++)
     {
         array[i] = true;
     }
 
     // Filter non-prime dividers
-    for (int i = 2; i < sqrt(dividersSize); i++) {
+    int maxI = sqrt(dividersSize);
+    #pragma omp for schedule(guided)
+    for (int i = 2; i < maxI; i++)
+    {
         int j = i;
-        while (j + i < dividersSize) {
+        while (j + i < dividersSize)
+        {
             j += i;
             dividers[j] = false;
         }
     }
 
     // Filter non-prime numbers
-    for (int i = 2; i < dividersSize; i++) {
-        if (dividers[i]) {
+    #pragma omp for schedule(guided)
+    for (int i = 2; i < dividersSize; i++)
+    {
+        if (dividers[i])
+        {
             int j = i * floor((min - 1) / i);
-            while (j + i < max) {
+            while (j + i < max)
+            {
                 j += i;
                 int index = j - min;
                 array[index] = false;
@@ -43,15 +55,19 @@ int* Sieve::find(int min, int max, int* size)
     }
 
     // Count all prime numbers
-    *size = 0;
+    int sum = 0;
+    #pragma omp for
     for (int i = 0; i < arraySize; i++)
     {
         if (array[i])
         {
-            (*size)++;
+            sum++;
         }
     }
 
+    #pragma omp atomic
+    *size += sum;
+}
     // Insert all prime numbers into an array
     int* result = new int[*size];
     int j = 0;
@@ -63,10 +79,10 @@ int* Sieve::find(int min, int max, int* size)
         }
     }
 
+
     // Clean up
     delete[] array;
     delete[] dividers;
 
     return result;
-
 }

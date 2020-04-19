@@ -2,7 +2,7 @@
 
 void ParallelPrimeFinder::test(int min, int max)
 {
-	int thread_nums[] = { MAX_THREAD_NUM , MAX_THREAD_NUM / 2, MAX_THREAD_NUM / 4 };
+	int thread_nums[] = { MAX_THREAD_NUM / 4 , MAX_THREAD_NUM / 2, MAX_THREAD_NUM };
 	for (int i = 0; i < 3; i++) {
 		omp_set_num_threads(thread_nums[i]);
 		try {

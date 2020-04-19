@@ -31,6 +31,10 @@ void PrimeFinder::validate(int min, int max, int* result, int size)
 {
 	std::stringstream ss;
 	ss << name() << " failed validation: ";
+	if (size == 0) {
+		ss << " none primes found";
+		throw std::exception(ss.str().c_str());
+	}
 	srand(time(NULL));
 	for (int i = 0; i < TESTS; i++) {
 		int index = rand() % size;

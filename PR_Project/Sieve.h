@@ -1,5 +1,7 @@
 #pragma once
+
 #include "PrimeFinder.h"
+
 class Sieve :
 	public PrimeFinder
 {
