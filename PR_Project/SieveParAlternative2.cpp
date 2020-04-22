@@ -46,7 +46,7 @@ int* SieveParAlternative2::find(int min, int max, int* size)
         int t = omp_get_thread_num();
         int minIndex = min + t * arraySize / maxT;
         int maxIndex = min + (t + 1) * arraySize / maxT;
-        for (int i = 2; i < dividersSize; i++)
+        for (int i = 2; i < sqrt(maxIndex); i++)
         {
             if (dividers[i])
             {
