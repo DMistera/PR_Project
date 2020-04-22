@@ -1,17 +1,17 @@
 #include "ParallelPrimeFinder.h"
 
+const int THREADS = 4;
+
 void ParallelPrimeFinder::test(int min, int max)
 {
-	int thread_nums[] = { MAX_THREAD_NUM / 4 , MAX_THREAD_NUM / 2, MAX_THREAD_NUM };
-	for (int i = 0; i < 3; i++) {
-		omp_set_num_threads(thread_nums[i]);
-		try {
-			std::stringstream ss;
-			ss << name() << " (" << thread_nums[i] << " threads)";
-			printResult(ss.str(), measureTime(min, max));
-		}
-		catch (std::exception e) {
-			std::cerr << e.what() << std::endl;
-		}
+
+	omp_set_num_threads(THREADS);
+	try {
+		std::stringstream ss;
+		ss << name() << " (" << THREADS << " threads)";
+		printResult(ss.str(), measureTime(min, max));
+	}
+	catch (std::exception e) {
+		std::cerr << e.what() << std::endl;
 	}
 }
