@@ -1,19 +1,25 @@
-#include "SieveParRange.h"
+#include "SieveParAlternative.h"
 
-#include <time.h>
-
-std::string SieveParRange::name()
+std::string SieveParAlternative::name()
 {
-	return "Sieve Algorith, parallel finding of primes in given range";
+	return "Sieve Algorith, split range array";
 }
 
-int* SieveParRange::find(int min, int max, int* size)
+int* SieveParAlternative::find(int min, int max, int* size)
 {
     int dividersSize = sqrt(max) + 1;
     int arraySize = max - min;
 
     // Initialize array
     bool* array = new bool[arraySize];
+
+    *size = 0;
+
+    for (int i = 0; i < arraySize; i++)
+    {
+        array[i] = true;
+    }
+
     bool* dividers = new bool[dividersSize];
 
     for (int i = 0; i < dividersSize; i++)
@@ -21,31 +27,34 @@ int* SieveParRange::find(int min, int max, int* size)
         dividers[i] = true;
     }
 
-    for (int i = 0; i < arraySize; i++) {
-        array[i] = true;
-    }
-
     // Filter non-prime dividers
-    for (int i = 2; i < sqrt(dividersSize); i++) {
+    for (int i = 2; i < sqrt(dividersSize); i++)
+    {
         int j = i;
-        while (j + i < dividersSize) {
+        while (j + i < dividersSize)
+        {
             j += i;
             dividers[j] = false;
         }
     }
 
-    // Filter non-prime numbers
 #pragma omp parallel
     {
-#pragma omp for schedule(static, 4)
-        for (int i = 2; i < dividersSize; i++) {
-            if (dividers[i]) {
-                int j = i * floor((min - 1) / i);
+        // Filter non-prime numbers
+        int maxT = omp_get_num_threads();
+        int t = omp_get_thread_num();
+        int minIndex = min + t * arraySize / maxT;
+        int maxIndex = min + (t + 1) * arraySize / maxT;
+        for (int i = 2; i < dividersSize; i++)
+        {
+            if (dividers[i])
+            {
+                int j = i * floor((minIndex - 1) / i);
                 if (j < i)
                 {
                     j += i;
                 }
-                while (j + i < max)
+                while (j + i < maxIndex)
                 {
                     j += i;
                     int index = j - min;
@@ -55,10 +64,10 @@ int* SieveParRange::find(int min, int max, int* size)
         }
     }
 
-    // Count all prime numbers
-    *size = 0;
-    for (int i = 0; i < arraySize; i++) {
-        if (array[i]) {
+    for (int i = 0; i < arraySize; i++)
+    {
+        if (array[i])
+        {
             (*size)++;
         }
     }
@@ -66,11 +75,14 @@ int* SieveParRange::find(int min, int max, int* size)
     // Insert all prime numbers into an array
     int* result = new int[*size];
     int j = 0;
-    for (int i = 0; i < arraySize; i++) {
-        if (array[i]) {
+    for (int i = 0; i < arraySize; i++)
+    {
+        if (array[i])
+        {
             result[j++] = min + i;
         }
     }
+
 
     // Clean up
     delete[] array;

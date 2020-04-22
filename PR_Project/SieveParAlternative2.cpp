@@ -1,11 +1,11 @@
-#include "SieveParEverything.h"
+#include "SieveParAlternative2.h"
 
-std::string SieveParEverything::name()
+std::string SieveParAlternative2::name()
 {
-	return "Sieve Algorith, maximum parallelization";
+	return "Sieve Algorith, split range array, separate dividers";
 }
 
-int* SieveParEverything::find(int min, int max, int* size)
+int* SieveParAlternative2::find(int min, int max, int* size)
 {
     int dividersSize = sqrt(max) + 1;
     int arraySize = max - min;
@@ -15,33 +15,32 @@ int* SieveParEverything::find(int min, int max, int* size)
 
     *size = 0;
 
-#pragma omp parallel
-#pragma omp for
     for (int i = 0; i < arraySize; i++)
     {
         array[i] = true;
     }
 
-    bool* dividers = new bool[dividersSize];
-
-    for (int i = 0; i < dividersSize; i++)
-    {
-        dividers[i] = true;
-    }
-
-    // Filter non-prime dividers
-    for (int i = 2; i < sqrt(dividersSize); i++)
-    {
-        int j = i;
-        while (j + i < dividersSize)
-        {
-            j += i;
-            dividers[j] = false;
-        }
-    }
-
 #pragma omp parallel
     {
+
+        bool* dividers = new bool[dividersSize];
+
+        for (int i = 0; i < dividersSize; i++)
+        {
+            dividers[i] = true;
+        }
+
+        // Filter non-prime dividers
+        for (int i = 2; i < sqrt(dividersSize); i++)
+        {
+            int j = i;
+            while (j + i < dividersSize)
+            {
+                j += i;
+                dividers[j] = false;
+            }
+        }
+
         // Filter non-prime numbers
         int maxT = omp_get_num_threads();
         int t = omp_get_thread_num();
@@ -64,22 +63,16 @@ int* SieveParEverything::find(int min, int max, int* size)
                 }
             }
         }
+
+        delete[] dividers;
     }
 
-
-#pragma omp parallel
+    for (int i = 0; i < arraySize; i++)
     {
-        int sum = 0;
-#pragma omp for
-        for (int i = 0; i < arraySize; i++)
+        if (array[i])
         {
-            if (array[i])
-            {
-                sum++;
-            }
+            (*size)++;
         }
-#pragma omp atomic
-        (*size) += sum;
     }
 
     // Insert all prime numbers into an array
@@ -96,7 +89,6 @@ int* SieveParEverything::find(int min, int max, int* size)
 
     // Clean up
     delete[] array;
-    delete[] dividers;
 
     return result;
 }

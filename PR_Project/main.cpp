@@ -8,23 +8,49 @@
 #include "Sieve.h"
 #include "SieveParDividers.h"
 #include "SieveParRange.h"
+#include "SieveParRange2.h"
 #include "SieveParEverything.h"
+#include "SieveParAlternative.h"
+#include "SieveParAlternative2.h"
+#include "SieveParDividers2.h"
 
-const int MIN = 500;
+const int MIN = 2;
 const int MAX = 100000000;
 
 std::vector<PrimeFinder*> primeFinders = {
     new Sieve(),
     new SieveParRange(),
-    new SieveParDividers(),
+    new SieveParRange2(),
+    new SieveParAlternative(),
+    new SieveParAlternative2(),
     new SieveParEverything()
 };
 
+
+void printMinMax(int min, int max)
+{
+    std::cout << "Instance: " << min << " - " << max << "\n";
+}
+
+void test(int min, int max)
+{
+    printMinMax(min, max);
+    for (PrimeFinder* p : primeFinders)
+    {
+        p->test(min, max);
+    }
+}
+
 int main()
 {
-    for (PrimeFinder* p : primeFinders) {
-        p->test(MIN, MAX);
-    }
+    int min;
+    int max;
+    min = MIN, max = MAX;
+    test(min, max);
+    min = MAX/2, max = MAX;
+    test(min, max);
+    min = MIN, max = MAX/2;
+    test(min, max);
     return 0;
 }
 

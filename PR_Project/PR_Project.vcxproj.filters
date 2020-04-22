@@ -36,6 +36,18 @@
     <ClCompile Include="SieveParEverything.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SieveParAlternative.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SieveParDividers2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SieveParRange2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SieveParAlternative2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PrimeFinder.h">
@@ -54,6 +66,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SieveParEverything.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SieveParAlternative.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SieveParDividers2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SieveParRange2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SieveParAlternative2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

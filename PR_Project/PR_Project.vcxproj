@@ -153,17 +153,25 @@
     <ClCompile Include="PrimeFinder.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sieve.cpp" />
+    <ClCompile Include="SieveParAlternative.cpp" />
+    <ClCompile Include="SieveParAlternative2.cpp" />
     <ClCompile Include="SieveParDividers.cpp" />
+    <ClCompile Include="SieveParDividers2.cpp" />
     <ClCompile Include="SieveParEverything.cpp" />
     <ClCompile Include="SieveParRange.cpp" />
+    <ClCompile Include="SieveParRange2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ParallelPrimeFinder.h" />
     <ClInclude Include="PrimeFinder.h" />
     <ClInclude Include="Sieve.h" />
+    <ClInclude Include="SieveParAlternative.h" />
+    <ClInclude Include="SieveParAlternative2.h" />
     <ClInclude Include="SieveParDividers.h" />
+    <ClInclude Include="SieveParDividers2.h" />
     <ClInclude Include="SieveParEverything.h" />
     <ClInclude Include="SieveParRange.h" />
+    <ClInclude Include="SieveParRange2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
