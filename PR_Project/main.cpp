@@ -46,14 +46,7 @@ void test(int min, int max)
 
 int main()
 {
-    int min;
-    int max;
-    min = MIN, max = MAX;
-    test(min, max);
-    min = MAX/2, max = MAX;
-    test(min, max);
-    min = MIN, max = MAX/2;
-    test(min, max);
+    test(MIN, MAX);
     return 0;
 }
 
