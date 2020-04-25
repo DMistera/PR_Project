@@ -17,7 +17,7 @@
 #include "NaivePar.h"
 
 const int MIN = 2;
-const int MAX = 100000000;
+const int MAX = 10000000;
 
 std::vector<PrimeFinder*> primeFinders = {
     //new Sieve(),
@@ -26,7 +26,7 @@ std::vector<PrimeFinder*> primeFinders = {
     //new SieveParAlternative(),
     //new SieveParAlternative2(),
     //new SieveParEverything(),
-    new NaivePar()
+    new NaivePar(),
 };
 
 
@@ -47,6 +47,8 @@ void test(int min, int max)
 int main()
 {
     test(MIN, MAX);
+    //test(MIN, MAX / 2);
+    //test(MAX / 2, MIN);
     return 0;
 }
 

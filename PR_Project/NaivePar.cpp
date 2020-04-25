@@ -2,10 +2,10 @@
 
 std::string NaivePar::name()
 {
-	return "Sieve Algorith, split range array";
+	return "Naive Algorithm, split range array";
 }
 
-int* NaivePar::find(int max, int min, int* size)
+int* NaivePar::find(int min, int max, int* size)
 {
 	int arraySize = max - min;
 
@@ -19,7 +19,7 @@ int* NaivePar::find(int max, int min, int* size)
 #pragma omp for schedule(dynamic)
 		for (int i = 0; i < arraySize; i++)
 		{
-			if (checkPrime(i))
+			if (checkPrime(min + i))
 			{
 				array[i] = true;
 				localSize++;
