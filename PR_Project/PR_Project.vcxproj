@@ -105,6 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,6 +141,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Naive.cpp" />
+    <ClCompile Include="NaivePar.cpp" />
     <ClCompile Include="ParallelPrimeFinder.cpp" />
     <ClCompile Include="PrimeFinder.cpp" />
     <ClCompile Include="main.cpp" />
@@ -162,6 +166,8 @@
     <ClCompile Include="SieveParRange2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Naive.h" />
+    <ClInclude Include="NaivePar.h" />
     <ClInclude Include="ParallelPrimeFinder.h" />
     <ClInclude Include="PrimeFinder.h" />
     <ClInclude Include="Sieve.h" />

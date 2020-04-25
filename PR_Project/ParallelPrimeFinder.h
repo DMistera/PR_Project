@@ -9,6 +9,6 @@ class ParallelPrimeFinder :
 public:
 	void test(int min, int max);
 private:
-	const int MAX_THREAD_NUM = 8;
+	const int MAX_THREAD_NUM = 12;
 };
 

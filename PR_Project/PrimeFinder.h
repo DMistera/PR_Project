@@ -16,9 +16,9 @@ protected:
 	virtual int* find(int min, int max, int* size) = 0;
 	void printResult(std::string instanceName, double seconds);
 	double measureTime(int min, int max);
+	bool checkPrime(int n);
 private:
 	const int TESTS = 5;
 	void validate(int min, int max, int* result, int size);
-	bool checkPrime(int n);
 };
 

@@ -13,17 +13,20 @@
 #include "SieveParAlternative.h"
 #include "SieveParAlternative2.h"
 #include "SieveParDividers2.h"
+#include "Naive.h"
+#include "NaivePar.h"
 
 const int MIN = 2;
 const int MAX = 100000000;
 
 std::vector<PrimeFinder*> primeFinders = {
-    new Sieve(),
-    new SieveParRange(),
-    new SieveParRange2(),
-    new SieveParAlternative(),
-    new SieveParAlternative2(),
-    new SieveParEverything()
+    //new Sieve(),
+    //new SieveParRange(),
+    //new SieveParRange2(),
+    //new SieveParAlternative(),
+    //new SieveParAlternative2(),
+    //new SieveParEverything(),
+    new NaivePar()
 };
 
 
