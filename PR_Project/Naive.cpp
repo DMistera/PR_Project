@@ -13,7 +13,7 @@ int* Naive::find(int min, int max, int* size)
 
     for (int i = 0; i < arraySize; i++)
     {
-        array[i] = checkPrime(i);
+        array[i] = checkPrime(min + i);
     }
 
     *size = 0;

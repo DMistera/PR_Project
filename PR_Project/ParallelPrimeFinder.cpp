@@ -1,6 +1,6 @@
 #include "ParallelPrimeFinder.h"
 
-const int THREADS = 12;
+const int THREADS = 6;
 
 void ParallelPrimeFinder::test(int min, int max)
 {
