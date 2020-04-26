@@ -21,7 +21,7 @@ double PrimeFinder::measureTime(int min, int max)
 	clock_t start = clock();
 	int* result = find(min, max, &size);
 	clock_t end = clock();
-	validate(min, max, result, size);
+	//validate(min, max, result, size);
 	double elapsed = (end - start) / 1000.0;
 	delete result;
 	return elapsed;

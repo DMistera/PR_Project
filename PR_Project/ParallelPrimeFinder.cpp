@@ -1,14 +1,12 @@
 #include "ParallelPrimeFinder.h"
 
-const int THREADS = 12;
-
 void ParallelPrimeFinder::test(int min, int max)
 {
 
-	omp_set_num_threads(THREADS);
+	omp_set_num_threads(MAX_THREAD_NUM);
 	try {
 		std::stringstream ss;
-		ss << name() << " (" << THREADS << " threads)";
+		ss << name() << " (" << MAX_THREAD_NUM << " threads)";
 		printResult(ss.str(), measureTime(min, max));
 	}
 	catch (std::exception e) {

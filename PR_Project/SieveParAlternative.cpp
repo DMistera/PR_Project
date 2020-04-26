@@ -38,10 +38,12 @@ int* SieveParAlternative::find(int min, int max, int* size)
         }
     }
 
+    //double start = clock();
+
 #pragma omp parallel
     {
         // Filter non-prime numbers
-        int maxT = omp_get_num_threads();
+        int maxT = ParallelPrimeFinder::MAX_THREAD_NUM;
         int t = omp_get_thread_num();
         int minIndex = min + t * arraySize / maxT;
         int maxIndex = min + (t + 1) * arraySize / maxT;
@@ -49,7 +51,7 @@ int* SieveParAlternative::find(int min, int max, int* size)
         {
             if (dividers[i])
             {
-                int j = i * floor((minIndex - 1) / i);
+                int j = i * ((minIndex - 1) / i);
                 if (j < i)
                 {
                     j += i;
@@ -58,11 +60,17 @@ int* SieveParAlternative::find(int min, int max, int* size)
                 {
                     j += i;
                     int index = j - min;
-                    array[index] = false;
+                    if (array[index])
+                    {
+                        array[index] = false;
+                    }
                 }
             }
         }
     }
+
+    //double end = clock();
+    //std::cout << (end - start)/1000.0 << std::endl;
 
     for (int i = 0; i < arraySize; i++)
     {

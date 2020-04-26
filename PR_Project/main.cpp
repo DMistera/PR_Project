@@ -17,16 +17,16 @@
 #include "NaivePar.h"
 
 const int MIN = 2;
-const int MAX = 10000000;
+const int MAX = 100000000;
 
 std::vector<PrimeFinder*> primeFinders = {
-    //new Sieve(),
+    new Sieve(),
     //new SieveParRange(),
     //new SieveParRange2(),
-    //new SieveParAlternative(),
+    new SieveParAlternative(),
     //new SieveParAlternative2(),
     //new SieveParEverything(),
-    new NaivePar(),
+    //new NaivePar(),
 };
 
 
