@@ -49,7 +49,10 @@ int* SieveParRange::find(int min, int max, int* size)
                 {
                     j += i;
                     int index = j - min;
-                    array[index] = false;
+                    if (array[index])
+                    {
+                        array[index] = false;
+                    }
                 }
             }
         }

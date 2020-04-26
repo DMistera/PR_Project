@@ -20,7 +20,7 @@ const int MIN = 2;
 const int MAX = 100000000;
 
 std::vector<PrimeFinder*> primeFinders = {
-    //new Sieve(),
+    new Sieve(),
     //new SieveParRange(),
     //new SieveParRange2(),
     //new SieveParAlternative(),
@@ -28,6 +28,10 @@ std::vector<PrimeFinder*> primeFinders = {
     //new SieveParEverything(),
     //new Naive(),
     //new NaivePar()
+    //new SieveParAlternative(),
+    //new SieveParAlternative2(),
+    //new SieveParEverything(),
+    //new NaivePar(),
 };
 
 
