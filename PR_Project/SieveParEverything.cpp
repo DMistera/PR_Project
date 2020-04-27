@@ -43,11 +43,11 @@ int* SieveParEverything::find(int min, int max, int* size)
         }
 
         // Filter non-prime numbers
-        int maxT = omp_get_num_threads();
+        int maxT = ParallelPrimeFinder::MAX_THREAD_NUM;
         int t = omp_get_thread_num();
         int minIndex = min + t * arraySize / maxT;
         int maxIndex = min + (t + 1) * arraySize / maxT;
-        for (int i = 2; i < dividersSize; i++)
+        for (int i = 2; i < sqrt(maxIndex); i++)
         {
             if (dividers[i])
             {
