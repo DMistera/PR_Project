@@ -24,7 +24,7 @@ std::vector<PrimeFinder*> primeFinders = {
     new Sieve(),
     //new SieveParRange(),
     //new SieveParRange2(),
-    new SieveParAlternative(),
+    //new SieveParAlternative(),
     //new SieveParAlternative2(),
     //new SieveParEverything(),
     //new Naive(),
