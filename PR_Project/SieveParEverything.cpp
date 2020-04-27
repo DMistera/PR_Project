@@ -47,7 +47,6 @@ int* SieveParEverything::find(int min, int max, int* size)
         int t = omp_get_thread_num();
         int minIndex = min + t * arraySize / maxT;
         int maxIndex = min + (t + 1) * arraySize / maxT;
-        int sum = 0;
         for (int i = 2; i < dividersSize; i++)
         {
             if (dividers[i])
@@ -64,12 +63,20 @@ int* SieveParEverything::find(int min, int max, int* size)
                     if (array[index])
                     {
                         array[index] = false;
-                        sum++;
                     }
                 }
             }
         }
 
+        int sum = 0;
+#pragma omp for
+        for (int i = 0; i < arraySize; i++)
+        {
+            if (array[i])
+            {
+                sum++;
+            }
+        }
 #pragma omp atomic
         (*size) += sum;
     }
