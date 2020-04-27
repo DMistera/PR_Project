@@ -70,10 +70,7 @@ int* SieveParRange2::find(int min, int max, int* size)
             {
                 j += num;
                 int index = j - min;
-                if (array[index])
-                {
-                    array[index] = false;
-                }
+                array[index] = false;
             }
 
         }
