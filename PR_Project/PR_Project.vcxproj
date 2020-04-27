@@ -164,6 +164,7 @@
     <ClCompile Include="SieveParEverything.cpp" />
     <ClCompile Include="SieveParRange.cpp" />
     <ClCompile Include="SieveParRange2.cpp" />
+    <ClCompile Include="SieveParRangeFinal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Naive.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="SieveParEverything.h" />
     <ClInclude Include="SieveParRange.h" />
     <ClInclude Include="SieveParRange2.h" />
+    <ClInclude Include="SieveParRangeFinal.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -45,15 +45,18 @@ int* SieveParRange2::find(int min, int max, int* size)
     }
 
     int* dividersNum = new int[dividersNumSize];
-    int j = 0;
+    
+    int k = 0;
     for (int i = 2; i < dividersSize; i++)
     {
         if (dividers[i])
         {
-            dividersNum[j++] = i;
+            dividersNum[k++] = i;
         }
     }
+    
 
+    double start = clock();
     // Filter non-prime numbers
 #pragma omp parallel
     {
@@ -61,7 +64,7 @@ int* SieveParRange2::find(int min, int max, int* size)
         for (int i = 0; i < dividersNumSize; i++)
         {
             int num = dividersNum[i];
-            int j = num * floor((min - 1) / num);
+            int j = num * ((min - 1) / num);
             if (j < num)
             {
                 j += num;
@@ -70,11 +73,18 @@ int* SieveParRange2::find(int min, int max, int* size)
             {
                 j += num;
                 int index = j - min;
-                array[index] = false;
+                if (array[index])
+                {
+                    array[index] = false;
+                }
             }
 
         }
     }
+
+
+    double end = clock();
+    std::cout << (end - start) / 1000.0 << std::endl;
 
     // Count all prime numbers
     *size = 0;
@@ -88,7 +98,8 @@ int* SieveParRange2::find(int min, int max, int* size)
 
     // Insert all prime numbers into an array
     int* result = new int[*size];
-    j = 0;
+    
+    int j = 0;
     for (int i = 0; i < arraySize; i++)
     {
         if (array[i])
@@ -96,6 +107,7 @@ int* SieveParRange2::find(int min, int max, int* size)
             result[j++] = min + i;
         }
     }
+    
 
     // Clean up
     delete[] array;

@@ -34,13 +34,15 @@ int* SieveParRange::find(int min, int max, int* size)
         }
     }
 
+    double start = clock();
+
     // Filter non-prime numbers
 #pragma omp parallel
     {
-#pragma omp for schedule(static, 4)
+#pragma omp for schedule(dynamic)
         for (int i = 2; i < dividersSize; i++) {
             if (dividers[i]) {
-                int j = i * floor((min - 1) / i);
+                int j = i * ((min - 1) / i);
                 if (j < i)
                 {
                     j += i;
@@ -49,11 +51,17 @@ int* SieveParRange::find(int min, int max, int* size)
                 {
                     j += i;
                     int index = j - min;
-                    array[index] = false;
+                    if (array[index])
+                    {
+                        array[index] = false;
+                    }
                 }
             }
         }
     }
+
+    double end = clock();
+    std::cout << (end - start) / 1000.0 << std::endl;
 
     // Count all prime numbers
     *size = 0;

@@ -38,7 +38,6 @@ int* SieveParAlternative::find(int min, int max, int* size)
         }
     }
 
-    //double start = clock();
 
 #pragma omp parallel
     {
@@ -68,9 +67,6 @@ int* SieveParAlternative::find(int min, int max, int* size)
             }
         }
     }
-
-    //double end = clock();
-    //std::cout << (end - start)/1000.0 << std::endl;
 
     for (int i = 0; i < arraySize; i++)
     {

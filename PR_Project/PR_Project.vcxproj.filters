@@ -54,6 +54,9 @@
     <ClCompile Include="NaivePar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SieveParRangeFinal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PrimeFinder.h">
@@ -90,6 +93,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NaivePar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SieveParRangeFinal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

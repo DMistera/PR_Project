@@ -13,6 +13,7 @@
 #include "SieveParAlternative.h"
 #include "SieveParAlternative2.h"
 #include "SieveParDividers2.h"
+#include "SieveParRangeFinal.h"
 #include "Naive.h"
 #include "NaivePar.h"
 
@@ -23,14 +24,15 @@ std::vector<PrimeFinder*> primeFinders = {
     new Sieve(),
     //new SieveParRange(),
     //new SieveParRange2(),
-    //new SieveParAlternative(),
-    new SieveParAlternative2(),
+    new SieveParAlternative(),
+    //new SieveParAlternative2(),
     //new SieveParEverything(),
     //new Naive(),
     //new NaivePar()
     //new SieveParAlternative(),
     //new SieveParAlternative2(),
-    //new SieveParEverything(),
+    new SieveParEverything(),
+    new SieveParRangeFinal()
     //new NaivePar(),
 };
 
